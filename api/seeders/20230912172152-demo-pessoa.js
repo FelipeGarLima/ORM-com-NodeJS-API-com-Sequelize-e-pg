@@ -17,7 +17,7 @@ module.exports = {
         nome: 'Ana Souza',
         ativo: true,
         email: 'ana@ana.com',
-        role: 'estudante',
+        role: 'docente',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -29,8 +29,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], 
-    {});
+    ],{});
     
   },
 
