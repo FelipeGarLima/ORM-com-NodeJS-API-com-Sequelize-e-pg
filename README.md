@@ -18,3 +18,4 @@ comando para instalar o sequelize:
     npx sequelize-cli model:create --name Niveis --attributes descr_nivel:string
     npx sequelize-cli model:create --name Turmas --attributes data_inicio:dateonly
     npx sequelize-cli model:create --name Matriculas --attributes status:string
+    npx sequelize-cli db:migrate
