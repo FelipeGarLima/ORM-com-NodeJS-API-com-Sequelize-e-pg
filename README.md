@@ -14,3 +14,7 @@ comando para instalar o sequelize:
     npx sequelize db:seed:undo
     npx sequelize-cli db:seed:undo --seed nome-do-arquivo
     npx sequelize-cli db:seed:undo:all
+
+    npx sequelize-cli model:create --name Niveis --attributes descr_nivel:string
+    npx sequelize-cli model:create --name Turmas --attributes data_inicio:dateonly
+    npx sequelize-cli model:create --name Matriculas --attributes status:string
