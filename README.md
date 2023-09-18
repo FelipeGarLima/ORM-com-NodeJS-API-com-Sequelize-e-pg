@@ -22,3 +22,8 @@ comando para instalar o sequelize:
     npx sequelize-cli seed:generate --name demo-nivel
     npx sequelize-cli seed:generate --name demo-turmas
     npx sequelize-cli seed:generate --name demo-matriculas
+
+    npx sequelize-cli db:seed:undo:all
+    npx sequelize-cli db:migrate:undo:all
+    npx sequelize-cli db:migrate
+    npx sequelize-cli db:seed:all
