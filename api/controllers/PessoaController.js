@@ -53,6 +53,22 @@ class PessoaController {
             return res.status(500).json(error.message)
         }
     }
+
+    //http://localhost:3000/pessoas/:estudanteId/matricula/:matriculaId
+    static async pegaUmaMatricula(req, res){
+        try {
+            const { estudanteId, matriculaId } = req.params
+            const matricula = await database.Matriculas.findOne({ 
+                where: { 
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId) 
+                }
+            }) 
+            return res.status(200).send(matricula)
+        } catch (error) {
+            return res.status(500).send({message: error.message}) // completar tratamento
+        }
+    }
 }
 
 module.exports = PessoaController
