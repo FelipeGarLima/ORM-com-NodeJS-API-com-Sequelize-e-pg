@@ -26,7 +26,7 @@ class PessoaController {
     static async criaPessoa(req, res){
         try {
             await database.Pessoas.create(req.body)
-            res.status(200).send({message: "Cadrastado com sucesso!"})
+            return res.status(200).send({message: "Cadrastado com sucesso!"})
         } catch (error) {
             return res.status(500).json(error.message)
         }
@@ -67,6 +67,17 @@ class PessoaController {
             return res.status(200).send(matricula)
         } catch (error) {
             return res.status(500).send({message: error.message}) // completar tratamento
+        }
+    }
+
+    static async criaMatricula(req, res){
+        try {
+            const { estudanteId } = req.params
+            const novaMatricula = { ...req.body, estudante_id: Number(estudanteId)}
+            const novaMatriculaCriada = await database.Matriculas.create(novaMatricula)
+            res.status(200).json(novaMatriculaCriada)
+        } catch (error) {
+            return res.status(500).json(error.message)
         }
     }
 }
