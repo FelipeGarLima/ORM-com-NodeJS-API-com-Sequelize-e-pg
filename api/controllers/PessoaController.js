@@ -8,15 +8,15 @@ class PessoaController {
             const todasAsPessoas = await database.Pessoas.findAll()
             return res.status(200).send(todasAsPessoas)
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
         }
     }
 
     static async pegaUmaPessoa(req, res){
         try {
-            const { id } = req.params
+            //const { id } = req.params
             //const pessoa = await database.Pessoas.findAll({ where: { id: Number(id)}}) // retorna um vetor com um objeto
-            const pessoa = await database.Pessoas.findOne({ where: { id: Number(id)}}) // retorna um objeto
+            const pessoa = await database.Pessoas.findOne({ where: { id: Number(req.params)}}) // retorna um objeto
             return res.status(200).send(pessoa)
         } catch (error) {
             return res.status(500).send({message: error.message}) // completar tratamento
@@ -28,19 +28,19 @@ class PessoaController {
             await database.Pessoas.create(req.body)
             return res.status(200).send({message: "Cadrastado com sucesso!"})
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
         }
     }
 
     static async atualizarPessoa(req, res){
         try {
-            //const { id } = req.params
+            const { id } = req.params
             //const novaInfos = req.body
-            await database.Pessoas.update(req.body, { where: { id: Number(req.params.id) } })
+            await database.Pessoas.update(req.body, { where: { id: Number(id) } })
 
-            return res.status(200).send(await database.Pessoas.findOne({where: {id: Number(req.params.id)}}))
+            return res.status(200).send(await database.Pessoas.findOne({where: {id: Number(id)}}))
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
         }
     }
 
@@ -50,7 +50,17 @@ class PessoaController {
             await database.Pessoas.destroy({where: {id: Number(id)}})
             return res.status(200).send({message: `id ${id} deletada!`})
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
+        }
+    }
+
+    static async restauraPessoa(req, res){
+        try {
+            const {id} = req.params
+            await database.Pessoas.restore({where: {id: Number(id)}})
+            return res.status(200).send({message: `id ${id} restaurado!`})
+        } catch (error) {
+            return res.status(500).send({message: error.message})
         }
     }
 
@@ -72,12 +82,22 @@ class PessoaController {
 
     static async criaMatricula(req, res){
         try {
-            const { estudanteId } = req.params
-            const novaMatricula = { ...req.body, estudante_id: Number(estudanteId)}
+            //const { estudanteId } = req.params
+            const novaMatricula = { ...req.body, estudante_id: Number(req.params.estudanteId)}
             const novaMatriculaCriada = await database.Matriculas.create(novaMatricula)
             res.status(200).send(novaMatriculaCriada)
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
+        }
+    }
+
+    static async restauraMatricula(req, res){
+        try {
+            const { estudanteId, matriculaId } = req.params
+            await database.Matriculas.restore({where: {id: Number(matriculaId), estudante_id: Number(estudanteId)}})
+            return res.status(200).send({message: `id ${matriculaId} restaurado!`})
+        } catch (error) {
+            return res.status(500).send({message: error.message})
         }
     }
 
@@ -89,7 +109,7 @@ class PessoaController {
 
             return res.status(200).send(await database.Matriculas.findOne({where: {id: Number(matriculaId)}}))
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
         }
     }
 
@@ -99,7 +119,7 @@ class PessoaController {
             await database.Matriculas.destroy({where: { id: Number(matriculaId), estudante_id: Number(estudanteId) }})
             return res.status(200).send({message: `Matricula ${matriculaId} deletada!`})
         } catch (error) {
-            return res.status(500).json(error.message)
+            return res.status(500).send({message: error.message})
         }
     }
 }

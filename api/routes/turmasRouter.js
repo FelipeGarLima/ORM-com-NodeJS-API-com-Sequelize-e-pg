@@ -3,10 +3,15 @@ const TurmaController = require('../controllers/TurmaController')
 
 const router = Router()
 
-router.get('/turmas', TurmaController.pegaTodasTurmas)
-router.get('/turmas/:id', TurmaController.pegaUmaTurma)
-router.post('/turmas', TurmaController.criarTurma)
-router.put('/turmas/:id', TurmaController.atualizarTurma)
-router.delete('/turmas/:id', TurmaController.deletarTurma)
+router
+    .get('/turmas', TurmaController.pegaTodasTurmas)
+    .get('/turmas/:id', TurmaController.pegaUmaTurma)
+
+    .post('/turmas', TurmaController.criarTurma)
+    .post('/turmas/:id/restaura', TurmaController.restauraTurma)
+
+    .put('/turmas/:id', TurmaController.atualizarTurma)
+    
+    .delete('/turmas/:id', TurmaController.deletarTurma)
 
 module.exports = router
