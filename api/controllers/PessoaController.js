@@ -97,7 +97,7 @@ class PessoaController {
         try {
             const { estudanteId, matriculaId } = req.params
             await database.Matriculas.destroy({where: { id: Number(matriculaId), estudante_id: Number(estudanteId) }})
-            return res.status(200).send({message: "Matricula deletada!"})
+            return res.status(200).send({message: `Matricula ${matriculaId} deletada!`})
         } catch (error) {
             return res.status(500).json(error.message)
         }
