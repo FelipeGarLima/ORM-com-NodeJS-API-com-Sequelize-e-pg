@@ -1,5 +1,6 @@
 const { where } = require('sequelize')
 const database = require('../models')
+const { Op } = require('sequelize')
 
 class PessoaController {
 
@@ -122,6 +123,42 @@ class PessoaController {
             return res.status(500).send({message: error.message})
         }
     }
+
+    static async consultaRegistroApagado(req, res) {
+        try {
+            return res.status(200).send(await database.Pessoas.findOne({
+                paranoid: false,
+                where: { id: Number(req.params.id) }
+            }))
+        } catch (error) {
+            return res.status(500).send({message: error.message})
+        }
+    }
+
+    // static async consultaTodosRegistroApagado(req, res){
+    //     try {
+    //         return res.status(200).send(await database.Pessoas.restore())
+    //     } catch (error) {
+    //         return res.status(500).send({message: error.message})
+    //     }
+    // }
+
+    static async deletarPessoaPermanentemente(req, res){
+        try {
+            const {id} = req.params
+            await database.Pessoas.destroy({
+                where: {
+                  id: Number(id)
+                },
+                force: true
+            })
+            return res.status(200).send({message: `Pessoa com id: ${id} deletada permanentemente!`})
+        } catch (error) {
+            return res.status(500).send({message: error.message})
+        }
+        
+    }
+
 }
 
 module.exports = PessoaController

@@ -7,6 +7,8 @@ router
     .get('/pessoas', PessoaController.pegaTodasAsPessoas)
     .get('/pessoas/:id', PessoaController.pegaUmaPessoa)
     .get('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.pegaUmaMatricula)
+    .get('/pessoas/:id/consultaRegistroApagado', PessoaController.consultaRegistroApagado)
+    //.get('/pessoas/consultaTodosRegistroApagado', PessoaController.consultaTodosRegistroApagado)
 
     .post('/pessoas', PessoaController.criaPessoa)
     .post('/pessoas/:estudanteId/matricula', PessoaController.criaMatricula)
@@ -18,6 +20,7 @@ router
 
     .delete('/pessoas/:id', PessoaController.deletarPessoa)
     .delete('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.deletarMatricula)
+    .delete('/pessoas/deletarPessoaPermanentemente/:id', PessoaController.deletarPessoaPermanentemente)
 
 
 
