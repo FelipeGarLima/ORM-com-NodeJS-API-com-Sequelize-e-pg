@@ -28,7 +28,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     nome: DataTypes.STRING,
     ativo: DataTypes.BOOLEAN,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'e-mail inválido!'
+        }
+      }
+    },
     role: DataTypes.STRING
     }, {
       sequelize,
