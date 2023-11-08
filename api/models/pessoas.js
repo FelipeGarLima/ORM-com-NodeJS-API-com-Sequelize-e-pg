@@ -26,7 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true, // Configuração para autoincremento
     },
-    nome: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      validate: {
+        funcaoValidadora: function(dado){
+          if(dado.length < 3) throw new Error('nome deve ter mais de 3 caracteres!')
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     email: {
       type: DataTypes.STRING,
