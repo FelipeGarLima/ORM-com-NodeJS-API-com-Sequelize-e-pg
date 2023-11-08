@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
-  Pessoas.init({
+  Pessoas.init(
+    {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -29,15 +30,18 @@ module.exports = (sequelize, DataTypes) => {
     ativo: DataTypes.BOOLEAN,
     email: DataTypes.STRING,
     role: DataTypes.STRING
-  }, {
-    sequelize,
-    paranoid: true,
-    modelName: 'Pessoas',
-    defaultScope: {
-      where: {
-        ativo: true
+    }, {
+      sequelize,
+      paranoid: true,
+      modelName: 'Pessoas',
+      defaultScope: {
+        where: { ativo: true }
+      },
+      scopes: {
+        todos: { where: {}}
+        // etc: { constraint: valor }
       }
     }
-  });
+  );
   return Pessoas;
 };

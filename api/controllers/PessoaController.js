@@ -4,9 +4,18 @@ const { Op } = require('sequelize')
 
 class PessoaController {
 
+    static async pegaPessoasAtivas(req, res){
+        try {
+            const pessoasAtivas = await database.Pessoas.findAll()
+            return res.status(200).send(pessoasAtivas)
+        } catch (error) {
+            return res.status(500).send({message: error.message})
+        }
+    }
+
     static async pegaTodasAsPessoas(req, res){
         try {
-            const todasAsPessoas = await database.Pessoas.findAll()
+            const todasAsPessoas = await database.Pessoas.scope('todos').findAll()
             return res.status(200).send(todasAsPessoas)
         } catch (error) {
             return res.status(500).send({message: error.message})
