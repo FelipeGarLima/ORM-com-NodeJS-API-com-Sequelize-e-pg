@@ -191,7 +191,7 @@ class PessoaController {
                 //limit: 2,
                 //order: [['estudante_id', 'ASC']]
             })
-            return res.status(200).json(todasAsMatriculas.count)
+            return res.status(200).json(todasAsMatriculas)
             //return res.status(200).json(todasAsMatriculas.count)
         } catch (error) {
             return res.status(500).send({message: error.message})
