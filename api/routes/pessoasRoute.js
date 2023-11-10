@@ -9,6 +9,7 @@ router
     .get('/pessoas/:id', PessoaController.pegaUmaPessoa)
     .get('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.pegaUmaMatricula)
     .get('/pessoas/:estudanteId/matricula', PessoaController.pegaMatriculas)
+    .get('/pessoas/matricula/:turmaId/confirmadas', PessoaController.pegaMatriculasPorTurma)
     .get('/pessoas/:id/consultaRegistroApagado', PessoaController.consultaRegistroApagado)
     //.get('/pessoas/consultaTodosRegistroApagado', PessoaController.consultaTodosRegistroApagado)
 

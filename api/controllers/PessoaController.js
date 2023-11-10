@@ -180,6 +180,24 @@ class PessoaController {
         }
     }
 
+    static async pegaMatriculasPorTurma(req, res){
+        try {
+            const { turmaId } = req.params
+            const todasAsMatriculas = await database.Matriculas.findAndCountAll({
+                where: {
+                    turma_id: Number(turmaId),
+                    status: 'confirmado'
+                },
+                //limit: 2,
+                //order: [['estudante_id', 'ASC']]
+            })
+            return res.status(200).json(todasAsMatriculas.count)
+            //return res.status(200).json(todasAsMatriculas.count)
+        } catch (error) {
+            return res.status(500).send({message: error.message})
+        }
+    }
+
 }
 
 module.exports = PessoaController
